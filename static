@@ -1,3 +1,0 @@
-The static directory is intended for static files such as CSS, JavaScript, and images that the application will serve. Since this directory is meant to hold such files, it will be intentionally left blank for now.
-
-# This file is intentionally left blank.
