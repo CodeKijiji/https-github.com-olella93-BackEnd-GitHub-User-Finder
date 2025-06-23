@@ -6,45 +6,45 @@ This project is a Flask application that allows users to find GitHub users and v
 
 ```
 phase-4
-back-end-github-user-finder/
+back-end-github-user-findergit add ./
 │
 ├── server/
-│   ├── __init__.py              # Initializes the Flask app
-│   ├── app.py                   # Entry point (FLASK_APP=server/app.py)
-│   ├── config.py                # Environment config (dev, prod)
-│   ├── extensions.py            # Initialize db, JWT, Migrate, etc.
+│   ├── __init__.py             
+│   ├── app.py                   
+│   ├── config.py                
+│   ├── extensions.py           
 │
-│   ├── models/                  # All SQLAlchemy models
+│   ├── models/                  
 │   │   ├── __init__.py
-│   │   ├── user.py              # User model (JWT-based auth)
-│   │   ├── item.py              # If implementing item catalog
-│   │   ├── task.py              # If implementing tasks
-│   │   ├── comment.py           # If implementing comments
+│   │   ├── user.py              
+│   │   ├── item.py              
+│   │   ├── task.py              
+│   │   ├── comment.py           
 │
-│   ├── controllers/             # Route logic separated by feature
+│   ├── controllers/            
 │   │   ├── __init__.py
-│   │   ├── auth_controller.py   # Register/login, JWT creation
-│   │   ├── user_controller.py   # Profile get/update (protected)
-│   │   ├── task_controller.py   # CRUD for tasks (if used)
-│   │   ├── item_controller.py   # CRUD for items (if used)
-│   │   ├── comment_controller.py# Comment routes
-│   │   ├── search_controller.py # GET /api/search
+│   │   ├── auth_controller.py   
+│   │   ├── user_controller.py  
+│   │   ├── task_controller.py   
+│   │   ├── item_controller.py   
+│   │   ├── comment_controller.py
+│   │   ├── search_controller.py 
 │
-│   ├── schemas/                 # Marshmallow schemas for validation (optional)
+│   ├── schemas/                 
 │   │   ├── __init__.py
 │   │   ├── user_schema.py
 │   │   ├── item_schema.py
 │
-│   ├── seed.py                  # Seed the database
-│   ├── utils.py                 # Helper functions (token decoding, etc.)
+│   ├── seed.py                 
+│   ├── utils.py                 
 │
-├── migrations/                  # Alembic migrations folder
+├── migrations/                  
 │
-├── .env                         # Environment variables
-├── .flaskenv                    # FLASK_APP and FLASK_ENV
-├── requirements.txt             # All dependencies
-├── README.md                    # Setup, auth flow, routes, usage
-└── manage.py                    # Optional CLI entrypoint (like Django's manage.py)
+├── .env                         
+├── .flaskenv                    
+├── requirements.txt             
+├── README.md                    
+            
 
 ```
 
