@@ -6,16 +6,46 @@ This project is a Flask application that allows users to find GitHub users and v
 
 ```
 phase-4
-└── Back-End-GitHub-User-Finder
-    ├── app.py
-    ├── requirements.txt
-    ├── README.md
-    ├── instance
-    │   └── config.py
-    ├── static
-    ├── templates
-    └── tests
-        └── test_app.py
+back-end-github-user-finder/
+│
+├── server/
+│   ├── __init__.py              # Initializes the Flask app
+│   ├── app.py                   # Entry point (FLASK_APP=server/app.py)
+│   ├── config.py                # Environment config (dev, prod)
+│   ├── extensions.py            # Initialize db, JWT, Migrate, etc.
+│
+│   ├── models/                  # All SQLAlchemy models
+│   │   ├── __init__.py
+│   │   ├── user.py              # User model (JWT-based auth)
+│   │   ├── item.py              # If implementing item catalog
+│   │   ├── task.py              # If implementing tasks
+│   │   ├── comment.py           # If implementing comments
+│
+│   ├── controllers/             # Route logic separated by feature
+│   │   ├── __init__.py
+│   │   ├── auth_controller.py   # Register/login, JWT creation
+│   │   ├── user_controller.py   # Profile get/update (protected)
+│   │   ├── task_controller.py   # CRUD for tasks (if used)
+│   │   ├── item_controller.py   # CRUD for items (if used)
+│   │   ├── comment_controller.py# Comment routes
+│   │   ├── search_controller.py # GET /api/search
+│
+│   ├── schemas/                 # Marshmallow schemas for validation (optional)
+│   │   ├── __init__.py
+│   │   ├── user_schema.py
+│   │   ├── item_schema.py
+│
+│   ├── seed.py                  # Seed the database
+│   ├── utils.py                 # Helper functions (token decoding, etc.)
+│
+├── migrations/                  # Alembic migrations folder
+│
+├── .env                         # Environment variables
+├── .flaskenv                    # FLASK_APP and FLASK_ENV
+├── requirements.txt             # All dependencies
+├── README.md                    # Setup, auth flow, routes, usage
+└── manage.py                    # Optional CLI entrypoint (like Django's manage.py)
+
 ```
 
 ## Setup Instructions
