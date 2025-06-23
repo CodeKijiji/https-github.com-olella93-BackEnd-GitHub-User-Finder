@@ -7,43 +7,37 @@ This project is a Flask application that allows users to find GitHub users and v
 ```
 phase-4
 back-end-github-user-findergit add ./
-│
+backend/
 ├── server/
-│   ├── __init__.py             
-│   ├── app.py                   
-│   ├── config.py                
-│   ├── extensions.py           
+│   ├── app.py
+│   ├── config.py
+│   ├── extensions.py
+│   ├── seed.py
 │
-│   ├── models/                  
+│   ├── models/
 │   │   ├── __init__.py
-│   │   ├── user.py              
-│   │   ├── item.py              
-│   │   ├── task.py              
-│   │   ├── comment.py           
+│   │   ├── user.py
+│   │   ├── item.py
+│   │   ├── comment.py
 │
-│   ├── controllers/            
-│   │   ├── __init__.py
-│   │   ├── auth_controller.py   
-│   │   ├── user_controller.py  
-│   │   ├── task_controller.py   
-│   │   ├── item_controller.py   
+│   ├── controllers/
+│   │   ├── auth_controller.py
+│   │   ├── user_controller.py
+│   │   ├── item_controller.py
 │   │   ├── comment_controller.py
-│   │   ├── search_controller.py 
+│   │   ├── search_controller.py
 │
-│   ├── schemas/                 
-│   │   ├── __init__.py
-│   │   ├── user_schema.py
-│   │   ├── item_schema.py
+│   ├── utils/
+│   │   ├── decorators.py     
+│   │   ├── validators.py      
 │
-│   ├── seed.py                 
-│   ├── utils.py                 
-│
-├── migrations/                  
-│
-├── .env                         
-├── .flaskenv                    
-├── requirements.txt             
-├── README.md                    
+├── migrations/
+├── tests/                    
+├── .env
+├── .gitignore
+├── requirements.txt
+└── README.md
+                   
             
 
 ```
