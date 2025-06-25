@@ -1,5 +1,5 @@
 from flask import Blueprint, request, jsonify
-from flask_jwt_extended import jwt_required
+from flask_jwt_extended import jwt_required, get_jwt_identity
 from server.models.item import Item
 from server.extensions import db
 
@@ -10,19 +10,25 @@ item_bp = Blueprint("item_bp", __name__, url_prefix="/api/items")
 def create_item():
     data = request.get_json()
 
-    if not all(field in data for field in ["name", "description", "category"]):
+    if not all(field in data for field in ["github_username", "note", "category"]):
         return jsonify(error="Missing required fields"), 400
 
     item = Item(
-        name=data["name"],
-        description=data["description"],
-        category=data["category"]
+        github_username=data["github_username"],
+        note=data["note"],
+        category=data["category"],
+        user_id=get_jwt_identity()
     )
 
     db.session.add(item)
     db.session.commit()
 
-    return jsonify(item.to_dict()), 201
+    return jsonify({
+        "id": item.id,
+        "github_username": item.github_username,
+        "note": item.note,
+        "category": item.category
+    }), 201
 
 
 @item_bp.route("/", methods=["GET"])
@@ -34,7 +40,15 @@ def get_items():
     else:
         items = Item.query.all()
 
-    return jsonify([item.to_dict() for item in items]), 200
+    return jsonify([
+        {
+            "id": item.id,
+            "github_username": item.github_username,
+            "note": item.note,
+            "category": item.category
+        }
+        for item in items
+    ]), 200
 
 
 @item_bp.route("/<int:id>", methods=["PUT"])
@@ -45,12 +59,18 @@ def update_item(id):
         return jsonify(error="Item not found"), 404
 
     data = request.get_json()
-    item.name = data.get("name", item.name)
-    item.description = data.get("description", item.description)
+    item.github_username = data.get("github_username", item.github_username)
+    item.note = data.get("note", item.note)
     item.category = data.get("category", item.category)
 
     db.session.commit()
-    return jsonify(item.to_dict()), 200
+
+    return jsonify({
+        "id": item.id,
+        "github_username": item.github_username,
+        "note": item.note,
+        "category": item.category
+    }), 200
 
 
 @item_bp.route("/<int:id>", methods=["DELETE"])

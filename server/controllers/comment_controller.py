@@ -9,7 +9,7 @@ comment_bp = Blueprint("comment_bp", __name__, url_prefix="/api/comments")
 
 
 # POST /api/comments
-@comment_bp.route("/", methods=["POST"])
+@comment_bp.route("/comments", methods=["POST"])
 @jwt_required()
 def create_comment():
     data = request.get_json()
