@@ -15,18 +15,19 @@ def search_items():
 
     results = Item.query.filter(
         or_(
-            Item.name.ilike(f"%{query}%"),
-            Item.description.ilike(f"%{query}%")
+            Item.github_username.ilike(f"%{query}%"),
+            Item.note.ilike(f"%{query}%"),
+            Item.category.ilike(f"%{query}%")
         )
     ).all()
 
     items_data = [
         {
             "id": item.id,
-            "name": item.name,
-            "description": item.description,
+            "github_username": item.github_username,
+            "note": item.note,
             "category": item.category,
-            "created_at": item.created_at.isoformat()
+            "user_id": item.user_id
         }
         for item in results
     ]

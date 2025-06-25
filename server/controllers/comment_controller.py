@@ -11,6 +11,7 @@ comment_bp = Blueprint("comment_bp", __name__)
 @comment_bp.route("/", methods=["POST"])
 @jwt_required()
 def create_comment():
+    
     data = request.get_json()
     user_id = get_jwt_identity()
 
