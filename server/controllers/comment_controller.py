@@ -5,11 +5,10 @@ from server.models.item import Item
 from server.models.user import User
 from server.extensions import db
 
-comment_bp = Blueprint("comment_bp", __name__, url_prefix="/api/comments")
+comment_bp = Blueprint("comment_bp", __name__)
 
-
-# POST /api/comments
-@comment_bp.route("/comments", methods=["POST"])
+# POST /api/comments/
+@comment_bp.route("/", methods=["POST"])
 @jwt_required()
 def create_comment():
     data = request.get_json()
@@ -32,7 +31,6 @@ def create_comment():
         "item_id": comment.item_id
     }), 201
 
-
 # GET /api/comments/<item_id>
 @comment_bp.route("/<int:item_id>", methods=["GET"])
 def get_comments(item_id):
@@ -45,7 +43,6 @@ def get_comments(item_id):
             "item_id": c.item_id
         } for c in comments
     ]), 200
-
 
 # DELETE /api/comments/<id>
 @comment_bp.route("/<int:id>", methods=["DELETE"])

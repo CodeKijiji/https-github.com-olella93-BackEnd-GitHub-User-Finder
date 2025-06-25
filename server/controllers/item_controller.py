@@ -10,6 +10,9 @@ item_bp = Blueprint("item_bp", __name__, url_prefix="/api/items")
 def create_item():
     data = request.get_json()
 
+    print("DEBUG - Incoming JSON:", data)
+
+
     if not all(field in data for field in ["github_username", "note", "category"]):
         return jsonify(error="Missing required fields"), 400
 
