@@ -61,3 +61,32 @@ def delete_comment(id):
     db.session.delete(comment)
     db.session.commit()
     return jsonify({"message": "Comment deleted"}), 200
+
+# PUT /api/comments/<id>
+@comment_bp.route("/<int:id>", methods=["PUT"])
+@jwt_required()
+def update_comment(id):
+    user_id = get_jwt_identity()
+    comment = Comment.query.get(id)
+
+    if not comment:
+        return jsonify({"error": "Comment not found"}), 404
+
+    if comment.user_id != user_id:
+        return jsonify({"error": "Not authorized to edit this comment"}), 403
+
+    data = request.get_json()
+    content = data.get("content")
+
+    if not content:
+        return jsonify({"error": "Content is required for update"}), 400
+
+    comment.content = content
+    db.session.commit()
+
+    return jsonify({
+        "id": comment.id,
+        "content": comment.content,
+        "user_id": comment.user_id,
+        "item_id": comment.item_id
+    }), 200
