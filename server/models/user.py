@@ -19,10 +19,15 @@ class User(db.Model):
         return self._password_hash
 
     @password_hash.setter
-    def password_hash(self, password):
-        self._password_hash = generate_password_hash(password)
+    def password_hash(self, plaintext_password):
+        if plaintext_password:
+            self._password_hash = generate_password_hash(plaintext_password)
+        else:
+            raise ValueError("Password cannot be empty.")
 
     def check_password(self, password):
+        if not self._password_hash:
+            return False
         return check_password_hash(self._password_hash, password)
 
     def __repr__(self):
