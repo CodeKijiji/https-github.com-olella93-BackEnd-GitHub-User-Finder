@@ -1,1 +1,1 @@
-web: gunicorn 'server.app:create_app()'
+web: cd server && gunicorn 'app:create_app()'
