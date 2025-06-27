@@ -17,6 +17,8 @@ class Config:
         "https://https-github-com-olella93-frontend.onrender.com"
     ]
 
+    RATELIMIT_STORAGE_URI = "memory://"  
+
     #JWT Expiration settings
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(minutes=15)
     JWT_REFRESH_TOKEN_EXPIRES = timedelta(days=30)
