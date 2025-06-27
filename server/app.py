@@ -7,7 +7,10 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    CORS(app, supports_credentials=True, origins=["http://localhost:5173"])
+    CORS(app, supports_credentials=True, origins=[
+        "http://localhost:5173",
+        "https://https-github-com-olella93-frontend.onrender.com"
+    ])
     db.init_app(app)
     jwt.init_app(app)
     migrate.init_app(app, db)
@@ -27,6 +30,5 @@ def create_app():
     app.register_blueprint(search_bp, url_prefix="/api")
 
     return app 
-
 
 app = create_app()
