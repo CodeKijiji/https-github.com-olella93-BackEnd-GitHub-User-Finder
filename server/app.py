@@ -7,22 +7,19 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    # Enhanced CORS configuration
+    
     CORS(
         app,
         resources={
-            r"/api/*": {
+            r"/*": {
                 "origins": [
-                    "http://localhost:5173", 
-                    "https://https-github-com-olella93-frontend.onrender.com",  
-                    "https://github-com-olella93-frontend.onrender.com"  
-                ],
-                "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-                "allow_headers": ["Content-Type", "Authorization"],
-                "supports_credentials": True,
-                "max_age": 86400 
+                    "http://localhost:5173",
+                    "http://localhost:5175",
+                    "https://https-github-com-olella93-frontend.onrender.com"
+                ]
             }
-        }
+        },
+        supports_credentials=True
     )
 
     # Initialize extensions
@@ -43,6 +40,11 @@ def create_app():
     app.register_blueprint(item_bp, url_prefix="/api/items")
     app.register_blueprint(comment_bp, url_prefix="/api/comments")
     app.register_blueprint(search_bp, url_prefix="/api")
+
+
+    @app.route("/", methods=["GET"])
+    def health_check():
+        return {"message": "Backend is live"}, 200
 
     return app
 
