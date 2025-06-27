@@ -7,18 +7,31 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    CORS(app,
-         resources={r"/*": {"origins": [
-             "http://localhost:5173",
-             "https://https-github-com-olella93-frontend.onrender.com"
-         ]}},
-         supports_credentials=True)
+    # Enhanced CORS configuration
+    CORS(
+        app,
+        resources={
+            r"/api/*": {
+                "origins": [
+                    "http://localhost:5173", 
+                    "https://https-github-com-olella93-frontend.onrender.com",  
+                    "https://github-com-olella93-frontend.onrender.com"  
+                ],
+                "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+                "allow_headers": ["Content-Type", "Authorization"],
+                "supports_credentials": True,
+                "max_age": 86400 
+            }
+        }
+    )
 
+    # Initialize extensions
     db.init_app(app)
     jwt.init_app(app)
     migrate.init_app(app, db)
     limiter.init_app(app)
 
+    # Register blueprints
     from server.controllers.auth_controller import auth_bp
     from server.controllers.user_controller import user_bp
     from server.controllers.item_controller import item_bp
