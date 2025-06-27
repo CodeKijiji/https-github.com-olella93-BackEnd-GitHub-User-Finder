@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, request
 from flask_cors import CORS
 from server.config import Config
 from server.extensions import db, jwt, migrate, limiter
@@ -7,19 +7,23 @@ def create_app():
     app = Flask(__name__)
     app.config.from_object(Config)
 
-    
+    # Configure CORS 
     CORS(
         app,
         resources={
-            r"/*": {
+            r"/api/*": {
                 "origins": [
                     "http://localhost:5173",
                     "http://localhost:5175",
                     "https://https-github-com-olella93-frontend.onrender.com"
-                ]
+                ],
+                "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+                "allow_headers": ["Content-Type", "Authorization"],
+                "supports_credentials": True,
+                "expose_headers": ["Content-Type", "X-Total-Count"],
+                "max_age": 86400 
             }
-        },
-        supports_credentials=True
+        }
     )
 
     # Initialize extensions
@@ -41,6 +45,17 @@ def create_app():
     app.register_blueprint(comment_bp, url_prefix="/api/comments")
     app.register_blueprint(search_bp, url_prefix="/api")
 
+    # Debugging middleware
+    @app.after_request
+    def after_request(response):
+        # Log CORS-related information for debugging
+        app.logger.info(
+            f"CORS Debug - Origin: {request.headers.get('Origin')} | "
+            f"Method: {request.method} | "
+            f"Path: {request.path} | "
+            f"Status: {response.status_code}"
+        )
+        return response
 
     @app.route("/", methods=["GET"])
     def health_check():
@@ -49,3 +64,6 @@ def create_app():
     return app
 
 app = create_app()
+
+if __name__ == "__main__":
+    app.run(debug=True)
