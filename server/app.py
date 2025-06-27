@@ -13,7 +13,7 @@ def create_app():
     migrate.init_app(app, db)
     limiter.init_app(app)
 
-    # Blueprints (to be added later)
+    # Import and register blueprints
     from server.controllers.auth_controller import auth_bp
     from server.controllers.user_controller import user_bp
     from server.controllers.item_controller import item_bp
@@ -26,4 +26,7 @@ def create_app():
     app.register_blueprint(comment_bp, url_prefix="/api/comments")
     app.register_blueprint(search_bp, url_prefix="/api")
 
-    return app
+    return app 
+
+
+app = create_app()
