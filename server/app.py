@@ -53,13 +53,12 @@ def create_app():
     @app.route("/", methods=["GET"])
     def health_check():
         return {"message": "Backend is live"}, 200
-    
+
     @app.route("/run-migrations")
     def run_migrations():
-     from flask_migrate import upgrade
-     upgrade()
-    return {"message": "Migrations applied successfully"}, 200
-
+        from flask_migrate import upgrade
+        upgrade()
+        return {"message": "Migrations applied successfully"}, 200
 
     return app
 
