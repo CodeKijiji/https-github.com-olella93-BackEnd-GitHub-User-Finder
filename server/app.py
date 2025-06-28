@@ -12,7 +12,7 @@ def create_app():
         app,
         resources={r"/api/*": {"origins": [
             "http://localhost:5173",
-            "http://localhost:5175",
+            "http://localhost:5174",
             "https://https-github-com-olella93-frontend.onrender.com",
             "https://backend-github-user-finder.onrender.com"
         ]}},
