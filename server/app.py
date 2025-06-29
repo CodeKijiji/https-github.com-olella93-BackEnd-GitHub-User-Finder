@@ -13,6 +13,7 @@ def create_app():
         resources={r"/api/*": {"origins": [
             "http://localhost:5173",
             "http://localhost:5174",
+            "https://https-githubcom-olella93-frontend-github-user-f-production.up.railway.app/",
             "https://https-github-com-olella93-frontend.onrender.com",
             "https://backend-github-user-finder.onrender.com"
         ]}},
