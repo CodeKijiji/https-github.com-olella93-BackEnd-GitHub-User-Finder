@@ -23,7 +23,7 @@ def create_app():
     migrate.init_app(app, db)
     limiter.init_app(app)
 
-    # ✅ Register blueprints
+    # Register blueprints
     from server.controllers.auth_controller import auth_bp
     from server.controllers.user_controller import user_bp
     from server.controllers.item_controller import item_bp
@@ -51,6 +51,11 @@ def create_app():
             f"Status: {response.status_code}"
         )
         return response
+
+    # Auto-run migrations on deploy
+    with app.app_context():
+        from flask_migrate import upgrade
+        upgrade()
 
     return app
 
